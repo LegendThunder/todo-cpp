@@ -1,14 +1,10 @@
 #include <iostream>
-#include <vector>
-#include <string>
-
-struct Task {
-    std::string description;
-    bool completed;
-};
+#include "todo.h"
+#include "storage.h"
 
 int main() {
-    std::vector<Task> tasks;
+    const std::string FILENAME = "tasks.txt";
+    std::vector<Task> tasks = loadTasksFromFile(FILENAME);
     int choice;
     std::string desc;
 
@@ -26,6 +22,7 @@ int main() {
                 std::cout << "Enter task: ";
                 std::getline(std::cin, desc);
                 tasks.push_back({desc, false});
+                saveTasksToFile(tasks, FILENAME);
                 std::cout << "Task added.\n";
                 break;
             case 2:
@@ -40,6 +37,7 @@ int main() {
                 }
                 break;
             case 3:
+                saveTasksToFile(tasks, FILENAME);
                 std::cout << "Goodbye!\n";
                 return 0;
             default:
